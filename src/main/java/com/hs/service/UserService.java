@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.hs.domain.User;
 
+import java.util.List;
+
 public interface UserService extends IService<User> {
-    Page<User> selectUserPage(Page<User> page);
+    List<User> selectUsers(String username, String realname);
 }

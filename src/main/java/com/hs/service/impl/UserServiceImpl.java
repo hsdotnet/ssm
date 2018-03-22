@@ -1,5 +1,8 @@
 package com.hs.service.impl;
 
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -13,7 +16,15 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Override
-    public Page<User> selectUserPage(Page<User> page) {
-        return page.setRecords(baseMapper.selectUserList(page));
+    public List<User> selectUsers(String username, String realname) {
+        EntityWrapper<User> wrapper = new EntityWrapper<User>();
+        wrapper.setEntity(new User());
+        if (!username.isEmpty()) {
+            wrapper.like("username", username);
+        }
+        if (!realname.isEmpty()) {
+            wrapper.like("realname", realname);
+        }
+        return baseMapper.selectUserList(wrapper);
     }
 }

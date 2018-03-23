@@ -8,8 +8,12 @@
 </head>
 <body>
     <div class="container-fluid">
-        ${msg}
+        <table id="userGrid"></table>
+        <div id="userGridPager"></div>
     </div>
     <@common.commonScript/>
+    <script type="text/javascript">
+        var
+    </script>
 </body>
 </html>

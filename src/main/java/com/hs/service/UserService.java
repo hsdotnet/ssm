@@ -7,5 +7,5 @@ import com.hs.domain.User;
 import java.util.List;
 
 public interface UserService extends IService<User> {
-    List<User> selectUsers(String username, String realname);
+
 }

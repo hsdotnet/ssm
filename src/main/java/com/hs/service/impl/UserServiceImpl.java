@@ -15,16 +15,5 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-    @Override
-    public List<User> selectUsers(String username, String realname) {
-        EntityWrapper<User> wrapper = new EntityWrapper<User>();
-        wrapper.setEntity(new User());
-        if (!username.isEmpty()) {
-            wrapper.like("username", username);
-        }
-        if (!realname.isEmpty()) {
-            wrapper.like("realname", realname);
-        }
-        return baseMapper.selectUserList(wrapper);
-    }
+
 }

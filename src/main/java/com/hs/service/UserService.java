@@ -5,5 +5,5 @@ import com.hs.vo.JqGridPagerVO;
 import com.hs.vo.PagerVO;
 
 public interface UserService {
-    JqGridPagerVO<User> getJqGridData(PagerVO pager);
+    JqGridPagerVO<User> getJqGridData(PagerVO pager, String username);
 }

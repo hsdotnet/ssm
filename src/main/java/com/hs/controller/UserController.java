@@ -26,7 +26,7 @@ public class UserController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public JqGridPagerVO<User> getJqGridData(PagerVO pager) {
-        return userService.getJqGridData(pager);
+    public JqGridPagerVO<User> getJqGridData(PagerVO pager, String username) {
+        return userService.getJqGridData(pager, username);
     }
 }

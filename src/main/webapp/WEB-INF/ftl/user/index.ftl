@@ -12,7 +12,7 @@
     <header class="page-header">
         <h2 class="title">系统-用户管理</h2>
         <div class="actions">
-            <span class="record">共 28 条记录</span>
+            <span class="record">共 <span id="total">0</span> 条记录</span>
             <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 刷新</button>
             <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 添加</button>
             <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> 添加</button>
@@ -63,23 +63,27 @@
                     colModel: [
                         {label: '编号', hidden: true, name: 'id', key: true, width: 70},
                         {label: '用户名', name: 'username', width: 100},
-                        {label: '真实姓名', name: 'realname', width: 100, align: 'center'},
-                        {label: '性别', name: 'sex', width: 70},
+                        {label: '真实姓名', name: 'realname', width: 100},
+                        {label: '性别', name: 'sex', width: 70, align: 'center'},
                         {
                             label: '出生日期',
                             name: 'birthday',
-                            width: 100,
+                            width: 90,
                             formatter: 'date',
-                            formatoptions: {srcformat: 'Y-m-d', newformat: 'Y-m-d'}
+                            formatoptions: {srcformat: 'Y-m-d', newformat: 'Y-m-d'},
+                            align: 'center'
                         },
+                        {label: '手机号', name: 'mobile', width: 100},
+                        {label: '邮箱', name: 'email', width: 150},
                         {label: '住址', name: 'address', width: 200},
                         {label: '创建人', name: 'createBy', width: 100},
                         {
                             label: '创建时间',
                             name: 'createTime',
-                            width: 130,
+                            width: 140,
                             formatter: 'date',
-                            formatoptions: {srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'}
+                            formatoptions: {srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'},
+                            align: 'center'
                         }
                     ],
                     postData: user.getPostData(),
@@ -91,7 +95,10 @@
                     autowidth: true,
                     height: $(window).height() - 179,
                     viewrecords: true,
-                    gridview: true
+                    gridview: true,
+                    loadComplete: function (data) {
+                        $('#total').text(data.records);
+                    }
                 });
             }
         },

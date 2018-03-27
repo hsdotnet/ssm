@@ -15,6 +15,10 @@ public class User extends BaseModel{
 
     private Date birthday;
 
+    private String mobile;
+
+    private String email;
+
     private String address;
 
     private String createBy;
@@ -73,6 +77,22 @@ public class User extends BaseModel{
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getAddress() {

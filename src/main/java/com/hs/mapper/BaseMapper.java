@@ -17,8 +17,4 @@ public interface BaseMapper<T extends BaseModel> {
     int updateByPrimaryKeySelective(T t);
 
     int updateByPrimaryKey(T t);
-
-    List<T> pageList(@Param("offset") int offset, @Param("pagesize") int pagesize);
-
-    int pageListCount();
 }

@@ -7,7 +7,9 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="realname" jdbcType="VARCHAR" property="realname"/>
         <result column="sex" jdbcType="CHAR" property="sex"/>
-        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -16,8 +18,8 @@
         <result column="deleted" jdbcType="CHAR" property="deleted"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, username, password, realname, sex, birthday, address, create_by, create_time, 
-    modify_by, modify_time, deleted
+    id, username, password, realname, sex, birthday, mobile, email, address, create_by, 
+    create_time, modify_by, modify_time, deleted
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -34,13 +36,15 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into base_user (username, password, realname,
-        sex, birthday, address,
-        create_by, create_time, modify_by,
-        modify_time, deleted)
+        sex, birthday, mobile, email,
+        address, create_by, create_time,
+        modify_by, modify_time, deleted
+        )
         values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
-        #{sex,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR},
-        #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=VARCHAR},
-        #{modifyTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR})
+        #{sex,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{modifyBy,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}
+        )
     </insert>
     <insert id="insertSelective" parameterType="com.hs.domain.User">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -62,6 +66,12 @@
             </if>
             <if test="birthday != null">
                 birthday,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="email != null">
+                email,
             </if>
             <if test="address != null">
                 address,
@@ -96,7 +106,13 @@
                 #{sex,jdbcType=CHAR},
             </if>
             <if test="birthday != null">
-                #{birthday,jdbcType=TIMESTAMP},
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},
@@ -134,7 +150,13 @@
                 sex = #{sex,jdbcType=CHAR},
             </if>
             <if test="birthday != null">
-                birthday = #{birthday,jdbcType=TIMESTAMP},
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
                 address = #{address,jdbcType=VARCHAR},
@@ -163,7 +185,9 @@
       password = #{password,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},
-      birthday = #{birthday,jdbcType=TIMESTAMP},
+      birthday = #{birthday,jdbcType=DATE},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -177,11 +201,17 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM base_user WHERE deleted = '0'
+        <if test="username != null and username != ''">
+            AND username like CONCAT(CONCAT('%', #{username}), '%')
+        </if>
         ORDER BY id desc
         LIMIT #{offset}, #{pagesize}
     </select>
 
     <select id="pageListCount" parameterType="java.util.Map" resultType="int">
         SELECT count(1) FROM base_user WHERE deleted = '0'
+        <if test="username != null and username != ''">
+            AND username like CONCAT(CONCAT('%', #{username}), '%')
+        </if>
     </select>
 </mapper>

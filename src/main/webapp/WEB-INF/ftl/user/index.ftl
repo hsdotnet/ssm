@@ -21,16 +21,12 @@
     <div class="page-content">
         <div class="searchbar form-inline">
             <div class="form-group">
-                <label>类别名称：</label>
-                <input type="text" class="form-control form-control-sm"/>
-            </div>
-            <div class="form-group">
-                <label>类别名称：</label>
-                <input type="text" class="form-control form-control-sm"/>
+                <label>用户名：</label>
+                <input type="text" id="username" class="form-control form-control-sm"/>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm">查询</button>
-                <button type="button" class="btn btn-primary btn-sm">重置</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btn-search">查询</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btn-reset">重置</button>
             </div>
         </div>
         <div class="grid">
@@ -47,6 +43,7 @@
     var user = {
         grid: null,
         init: function () {
+            user.bindEvent();
             user.loadGrid();
             $(window).resize(function () {
                 user.grid.setGridWidth(user.grid.closest('.grid').width());
@@ -55,7 +52,10 @@
         },
         loadGrid: function () {
             if (user.grid) {
-                user.grid.trigger('reloadGrid');
+                user.grid.jqGrid('setGridParam', {
+                    postData: user.getPostData(),
+                    page: 1
+                }).trigger('reloadGrid');
             } else {
                 user.grid = $('#jqGrid').jqGrid({
                     url: '${request.contextPath}/user/list',
@@ -82,6 +82,7 @@
                             formatoptions: {srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'}
                         }
                     ],
+                    postData: user.getPostData(),
                     rownumbers: true,
                     pager: "#jqGridPager",
                     rowNum: 20,
@@ -93,6 +94,20 @@
                     gridview: true
                 });
             }
+        },
+        getPostData: function () {
+            return {
+                username: $.trim($('#username').val())
+            }
+        },
+        bindEvent: function () {
+            $('#btn-search').click(function () {
+                user.loadGrid();
+            });
+            $('#btn-reset').click(function () {
+                $('#username').val('');
+                user.loadGrid();
+            })
         }
     }
 </script>

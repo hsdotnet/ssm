@@ -44,7 +44,7 @@
         <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
         <property name="freemarkerSettings">
             <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-                <property name="location" value="classpath:freemarker.properties"/>
+                <property name="location" value="classpath:props/freemarker.properties"/>
             </bean>
         </property>
     </bean>

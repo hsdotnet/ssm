@@ -1,19 +1,24 @@
 package com.hs.service.impl;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hs.domain.User;
 import com.hs.mapper.UserMapper;
 import com.hs.service.UserService;
+import com.hs.vo.JqGridPagerVO;
+import com.hs.vo.PagerVO;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl implements UserService {
+    @Resource
+    private UserMapper userMapper;
 
+    @Override
+    public JqGridPagerVO<User> getJqGridData(PagerVO pager) {
+        List<User> users = userMapper.pageList(pager.getOffset(), pager.getRows());
+        int count = userMapper.pageListCount();
+        return new JqGridPagerVO<User>(users, count, pager.getPage(), pager.getRows());
+    }
 }

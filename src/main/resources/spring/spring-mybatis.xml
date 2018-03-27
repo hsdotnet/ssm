@@ -6,42 +6,43 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
                         http://www.springframework.org/schema/context
-                        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                        http://www.springframework.org/schema/context/spring-context.xsd
                         http://www.springframework.org/schema/tx
                         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Service包(自动注入) -->
-    <context:component-scan base-package="com.hs.service"/>
-
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:props/jdbc.properties"/>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClass}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${jdbc.initialSize}"></property>
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="${jdbc.maxActive}"></property>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${jdbc.minIdle}"></property>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${jdbc.maxWait}"></property>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="${jdbc.validationQuery}"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
     </bean>
 
-    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
-        <property name="typeAliasesPackage" value="com.hs.domain"/>
-        <property name="globalConfig" ref="globalConfig"/>
-        <property name="plugins">
-            <array>
-                <!-- 分页插件配置 -->
-                <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.plugins.PaginationInterceptor"/>
-                <bean id="performanceInterceptor" class="com.baomidou.mybatisplus.plugins.PerformanceInterceptor"/>
-            </array>
-        </property>
     </bean>
 
-    <bean id="globalConfig" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
-        <property name="idType" value="0"/>
-    </bean>
-
-    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <property name="basePackage" value="com.hs.mapper"/>
     </bean>
 
@@ -49,5 +50,5 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" order="0"/>
 </beans>

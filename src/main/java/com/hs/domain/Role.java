@@ -2,20 +2,12 @@ package com.hs.domain;
 
 import java.util.Date;
 
-public class User extends BaseModel{
+public class Role extends BaseModel{
     private Integer id;
 
-    private String username;
+    private String rolename;
 
-    private String password;
-
-    private String realname;
-
-    private String sex;
-
-    private Date birthday;
-
-    private String address;
+    private String remark;
 
     private String createBy;
 
@@ -35,52 +27,20 @@ public class User extends BaseModel{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getRolename() {
+        return rolename;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setRolename(String rolename) {
+        this.rolename = rolename == null ? null : rolename.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname == null ? null : realname.trim();
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public String getCreateBy() {

@@ -3,8 +3,10 @@ package com.hs.controller;
 import com.hs.domain.User;
 import com.hs.service.UserService;
 import com.hs.vo.JqGridPagerVO;
+import com.hs.vo.PagerVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -24,8 +26,7 @@ public class UserController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public JqGridPagerVO<User> getUsers() {
-        List<User> users = userService.selectList(null);
-        return new JqGridPagerVO<>(users, 100, 1, 20);
+    public JqGridPagerVO<User> getJqGridData(PagerVO pager) {
+        return userService.getJqGridData(pager);
     }
 }

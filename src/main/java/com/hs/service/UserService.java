@@ -1,11 +1,9 @@
 package com.hs.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.IService;
 import com.hs.domain.User;
+import com.hs.vo.JqGridPagerVO;
+import com.hs.vo.PagerVO;
 
-import java.util.List;
-
-public interface UserService extends IService<User> {
-
+public interface UserService {
+    JqGridPagerVO<User> getJqGridData(PagerVO pager);
 }

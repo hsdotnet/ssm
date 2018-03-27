@@ -19,10 +19,16 @@ public class JqGridPagerVO<T> extends JqGridVO<T> {
         return total;
     }
 
-    public JqGridPagerVO(List<T> rows, int records, int page, int total) {
+    /**
+     * @param rows     记录
+     * @param records  总记录数
+     * @param page     当前页
+     * @param pagesize 页大小
+     */
+    public JqGridPagerVO(List<T> rows, int records, int page, int pagesize) {
         super(rows);
         this.records = records;
         this.page = page;
-        this.total = total;
+        this.total = (records + pagesize - 1) / pagesize;
     }
 }

@@ -1,22 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.mapper.UserMapper">
-
-    <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.hs.domain.User">
-        <id column="id" property="id"/>
-        <result column="username" property="username"/>
-        <result column="password" property="password"/>
-        <result column="realname" property="realname"/>
-        <result column="createtime" property="createtime"/>
-        <result column="createby" property="createby"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="realname" jdbcType="VARCHAR" property="realname"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_by" jdbcType="VARCHAR" property="modifyBy"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="deleted" jdbcType="CHAR" property="deleted"/>
     </resultMap>
+    <sql id="Base_Column_List">
+    id, username, password, realname, sex, birthday, address, create_by, create_time, 
+    modify_by, modify_time, deleted
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from base_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.hs.domain.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into base_user (username, password, realname,
+        sex, birthday, address,
+        create_by, create_time, modify_by,
+        modify_time, deleted)
+        values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
+        #{sex,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR},
+        #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=VARCHAR},
+        #{modifyTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hs.domain.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into base_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="realname != null">
+                realname,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyBy != null">
+                modify_by,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyBy != null">
+                #{modifyBy,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hs.domain.User">
+        update base_user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyBy != null">
+                modify_by = #{modifyBy,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hs.domain.User">
+    update base_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
-    <select id="selectUserList" resultMap="BaseResultMap">
-        SELECT * FROM jpa_user
-        <where>
-            ${ew.sqlSegment}
-        </where>
+    <select id="pageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM base_user WHERE deleted = '0'
+        ORDER BY id desc
+        LIMIT #{offset}, #{pagesize}
     </select>
 
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1) FROM base_user WHERE deleted = '0'
+    </select>
 </mapper>

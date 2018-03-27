@@ -45,34 +45,54 @@
         user.init();
     })
     var user = {
+        grid: null,
         init: function () {
-            user.grid();
+            user.loadGrid();
+            $(window).resize(function () {
+                user.grid.setGridWidth(user.grid.closest('.grid').width());
+                user.grid.setGridHeight($(window).height() - 179);
+            })
         },
-        grid: function () {
-            $('#jqGrid').jqGrid({
-                url: '${request.contextPath}/user/list',
-                datatype: 'json',
-                colModel: [
-                    {label: '编号', name: 'id', key: true, width: 75},
-                    {label: '用户名', name: 'username', width: 150},
-                    {label: '真实姓名', name: 'realname', width: 150},
-                    {label: '创建人', name: 'createby', width: 150},
-                    {
-                        label: '创建时间',
-                        name: 'createtime',
-                        width: 150,
-                        formatter: 'date',
-                        formatoptions: {srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'}
-                    }
-                ],
-                shrinkToFit: false,
-                autowidth: true,
-                height: $(window).height() - 177,
-                rowNum: 10,
-                viewrecords: true,
-                gridview: true,
-                pager: '#jqGridPager'
-            });
+        loadGrid: function () {
+            if (user.grid) {
+                user.grid.trigger('reloadGrid');
+            } else {
+                user.grid = $('#jqGrid').jqGrid({
+                    url: '${request.contextPath}/user/list',
+                    datatype: 'json',
+                    colModel: [
+                        {label: '编号', hidden: true, name: 'id', key: true, width: 70},
+                        {label: '用户名', name: 'username', width: 100},
+                        {label: '真实姓名', name: 'realname', width: 100, align: 'center'},
+                        {label: '性别', name: 'sex', width: 70},
+                        {
+                            label: '出生日期',
+                            name: 'birthday',
+                            width: 100,
+                            formatter: 'date',
+                            formatoptions: {srcformat: 'Y-m-d', newformat: 'Y-m-d'}
+                        },
+                        {label: '住址', name: 'address', width: 200},
+                        {label: '创建人', name: 'createBy', width: 100},
+                        {
+                            label: '创建时间',
+                            name: 'createTime',
+                            width: 130,
+                            formatter: 'date',
+                            formatoptions: {srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'}
+                        }
+                    ],
+                    rownumbers: true,
+                    pager: "#jqGridPager",
+                    rowNum: 20,
+                    rowList: [20, 30, 50, 100],
+                    shrinkToFit: false,
+                    autowidth: true,
+                    height: $(window).height() - 179,
+                    viewrecords: true,
+                    gridview: true
+                });
+            }
         }
     }
 </script>

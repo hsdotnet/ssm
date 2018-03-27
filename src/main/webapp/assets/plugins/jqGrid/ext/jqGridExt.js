@@ -1,4 +1,4 @@
-﻿$.jgrid.styleUI.jqGridUI = {
+﻿$.jgrid.styleUI.Bootstrap = {
     common: {
         disabled: "ui-disabled",
         highlight: "selected",
@@ -7,7 +7,6 @@
         cornertop: "",
         cornerbottom: "",
         hidden: "",
-        icon_base: "glyphicon",
         overlay: "ui-overlay",
         active: "active",
         error: "bg-danger",
@@ -136,4 +135,4 @@ $.jgrid.regional['cn'].defaults.recordtext = '检索到 {2} 条记录，显示 �
 $.jgrid.defaults.pagerpos = 'left';
 $.jgrid.defaults.recordpos = 'center';
 $.jgrid.defaults.regional = 'cn';
-$.jgrid.defaults.styleUI = 'jqGridUI';
+$.jgrid.defaults.styleUI = 'Bootstrap';

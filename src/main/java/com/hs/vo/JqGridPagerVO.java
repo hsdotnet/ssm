@@ -31,4 +31,17 @@ public class JqGridPagerVO<T> extends JqGridVO<T> {
         this.page = page;
         this.total = (records + pagesize - 1) / pagesize;
     }
+
+    /**
+     *
+     * @param rows
+     * @param records
+     * @param pager
+     */
+    public JqGridPagerVO(List<T> rows, int records, PagerVO pager) {
+        super(rows);
+        this.records = records;
+        this.page = pager.getPage();
+        this.total = (records + pager.getRows() - 1) / pager.getRows();
+    }
 }

@@ -62,4 +62,20 @@
         <property name="order" value="0"/>
     </bean>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/assets/**"/>
+            <bean class="com.hs.interceptor.LoginInterceptor">
+                <property name="excludedUrls">
+                    <list>
+                        <value>/login</value>
+                        <value>/doLogin</value>
+                        <value>/logout</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

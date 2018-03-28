@@ -7,13 +7,10 @@
     <@common.commonStyle/>
 </head>
 <body>
-    <div class="container-fluid">
-        <table id="userGrid"></table>
-        <div id="userGridPager"></div>
-    </div>
+<a href="${request.contextPath}/logout">退出</a>
     <@common.commonScript/>
-    <script type="text/javascript">
-        var
-    </script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

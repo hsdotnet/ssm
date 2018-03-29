@@ -9,4 +9,13 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> pageList(@Param("offset") int offset, @Param("pagesize") int pagesize, @Param("username") String username);
 
     int pageListCount(@Param("username") String username);
+
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    User login(@Param("username") String username, @Param("password") String password);
 }

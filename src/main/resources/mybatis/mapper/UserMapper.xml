@@ -214,4 +214,11 @@
             AND username like CONCAT(CONCAT('%', #{username}), '%')
         </if>
     </select>
+
+    <select id="login" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM base_user WHERE deleted = '0' and username = #{username} and password = #{password}
+        LIMIT 1
+    </select>
 </mapper>

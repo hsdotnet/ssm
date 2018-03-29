@@ -8,6 +8,7 @@
 </head>
 <body>
 <a href="${request.contextPath}/logout">退出</a>
+欢迎：${loginUser.realname}
     <@common.commonScript/>
 <script type="text/javascript">
 

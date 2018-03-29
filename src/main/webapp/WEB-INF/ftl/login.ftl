@@ -25,10 +25,11 @@
                 url: '${request.contextPath}/doLogin',
                 data: loginData,
                 success: function (response) {
+                    console.log(response)
                     if (response.code === 0) {
                         window.location.href = '${request.contextPath}/';
                     } else {
-                        alert(response.message);
+                        alert(response.msg);
                     }
                 }
             })

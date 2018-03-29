@@ -39,18 +39,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<String> login(HttpServletResponse response, String username, String password) {
-        if ("admin".equals(username) && "admin".equals(password)) {
-            LoginUserVO loginUserVO = new LoginUserVO();
-            loginUserVO.setId(1);
-            loginUserVO.setUsername(username);
-            loginUserVO.setRealname("管理员");
-            loginUserVO.setToken(UUID.randomUUID().toString());
-
-            CookieUtil.set(response, GlobalConstants.LOGIN_USER_COOKIE_KEY, loginUserVO.getToken(), false);
-            jedisPool.getResource().set(GlobalConstants.LOGIN_USER_REDIS_PRE + loginUserVO.getToken(), JsonUtil.objectToJson(loginUserVO));
-        } else {
+        User user = userMapper.login(username, password);
+        if (user == null) {
             return Result.error("用户名或者密码错误");
         }
+
+        LoginUserVO loginUserVO = new LoginUserVO();
+        loginUserVO.setId(user.getId());
+        loginUserVO.setUsername(user.getUsername());
+        loginUserVO.setRealname(user.getRealname());
+        loginUserVO.setToken(UUID.randomUUID().toString());
+
+        CookieUtil.set(response, GlobalConstants.LOGIN_USER_COOKIE_KEY, loginUserVO.getToken(), false);
+        jedisPool.getResource().set(GlobalConstants.LOGIN_USER_REDIS_PRE + loginUserVO.getToken(), JsonUtil.objectToJson(loginUserVO));
+
         return Result.success("");
     }
 
@@ -64,7 +66,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginUserVO getLoginUserByToken(HttpServletRequest request) {
         String token = CookieUtil.getValue(request, GlobalConstants.LOGIN_USER_COOKIE_KEY);
-        String json = jedisPool.getResource().get(token);
+        String json = jedisPool.getResource().get(GlobalConstants.LOGIN_USER_REDIS_PRE + token);
         return JsonUtil.jsonToPojo(json, LoginUserVO.class);
     }
 }

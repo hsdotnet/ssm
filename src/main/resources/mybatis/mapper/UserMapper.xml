@@ -205,14 +205,6 @@
             AND username like CONCAT(CONCAT('%', #{username}), '%')
         </if>
         ORDER BY id desc
-        LIMIT #{offset}, #{pagesize}
-    </select>
-
-    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
-        SELECT count(1) FROM base_user WHERE deleted = '0'
-        <if test="username != null and username != ''">
-            AND username like CONCAT(CONCAT('%', #{username}), '%')
-        </if>
     </select>
 
     <select id="login" parameterType="java.util.Map" resultMap="BaseResultMap">

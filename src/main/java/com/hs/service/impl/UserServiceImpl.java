@@ -1,5 +1,8 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.constants.GlobalConstants;
 import com.hs.domain.User;
 import com.hs.mapper.UserMapper;
@@ -9,17 +12,14 @@ import com.hs.util.JsonUtil;
 import com.hs.util.Result;
 import com.hs.vo.JqGridPagerVO;
 import com.hs.vo.LoginUserVO;
-import com.hs.vo.PagerVO;
-import org.apache.commons.lang3.StringUtils;
+import com.hs.vo.PageVO;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -31,10 +31,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public JqGridPagerVO<User> getJqGridData(PagerVO pager, String username) {
-        List<User> users = userMapper.pageList(pager.getOffset(), pager.getRows(), username);
-        int count = userMapper.pageListCount(username);
-        return new JqGridPagerVO<User>(users, count, pager);
+    public JqGridPagerVO<User> getJqGridData(PageVO page, String username) {
+        Page<User> p = PageHelper.startPage(page.getPage(), page.getRows(), true);
+        List<User> users = userMapper.pageList(username);
+        return new JqGridPagerVO<User>(users, (int)p.getTotal(), page);
     }
 
     @Override

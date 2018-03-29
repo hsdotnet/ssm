@@ -100,6 +100,12 @@
             <version>${mybatis.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.4</version>
+        </dependency>
+
         <!-- 添加mysql驱动依赖 -->
         <dependency>
             <groupId>mysql</groupId>

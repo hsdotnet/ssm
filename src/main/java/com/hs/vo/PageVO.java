@@ -1,6 +1,6 @@
 package com.hs.vo;
 
-public class PagerVO {
+public class PageVO {
     private int page;
     private int rows;
     private String sidx;
@@ -45,7 +45,7 @@ public class PagerVO {
 
     @Override
     public String toString() {
-        return "PagerVO{" +
+        return "PageVO{" +
                 "page=" + page +
                 ", rows=" + rows +
                 ", sidx='" + sidx + '\'' +

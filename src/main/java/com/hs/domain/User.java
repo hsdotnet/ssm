@@ -2,7 +2,7 @@ package com.hs.domain;
 
 import java.util.Date;
 
-public class User extends BaseModel{
+public class User extends BaseModel {
     private Integer id;
 
     private String username;
@@ -44,7 +44,7 @@ public class User extends BaseModel{
     }
 
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+        this.username = username;
     }
 
     public String getPassword() {
@@ -52,7 +52,7 @@ public class User extends BaseModel{
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getRealname() {
@@ -60,7 +60,7 @@ public class User extends BaseModel{
     }
 
     public void setRealname(String realname) {
-        this.realname = realname == null ? null : realname.trim();
+        this.realname = realname;
     }
 
     public String getSex() {
@@ -68,7 +68,7 @@ public class User extends BaseModel{
     }
 
     public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
+        this.sex = sex;
     }
 
     public Date getBirthday() {
@@ -84,7 +84,7 @@ public class User extends BaseModel{
     }
 
     public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
+        this.mobile = mobile;
     }
 
     public String getEmail() {
@@ -92,7 +92,7 @@ public class User extends BaseModel{
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
     public String getAddress() {
@@ -100,7 +100,7 @@ public class User extends BaseModel{
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getCreateBy() {
@@ -108,7 +108,7 @@ public class User extends BaseModel{
     }
 
     public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
+        this.createBy = createBy;
     }
 
     public Date getCreateTime() {
@@ -124,7 +124,7 @@ public class User extends BaseModel{
     }
 
     public void setModifyBy(String modifyBy) {
-        this.modifyBy = modifyBy == null ? null : modifyBy.trim();
+        this.modifyBy = modifyBy;
     }
 
     public Date getModifyTime() {
@@ -140,6 +140,6 @@ public class User extends BaseModel{
     }
 
     public void setDeleted(String deleted) {
-        this.deleted = deleted == null ? null : deleted.trim();
+        this.deleted = deleted;
     }
 }

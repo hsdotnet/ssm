@@ -32,7 +32,7 @@ public class Role extends BaseModel{
     }
 
     public void setRolename(String rolename) {
-        this.rolename = rolename == null ? null : rolename.trim();
+        this.rolename = rolename;
     }
 
     public String getRemark() {
@@ -40,7 +40,7 @@ public class Role extends BaseModel{
     }
 
     public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+        this.remark = remark;
     }
 
     public String getCreateBy() {
@@ -48,7 +48,7 @@ public class Role extends BaseModel{
     }
 
     public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
+        this.createBy = createBy;
     }
 
     public Date getCreateTime() {
@@ -64,7 +64,7 @@ public class Role extends BaseModel{
     }
 
     public void setModifyBy(String modifyBy) {
-        this.modifyBy = modifyBy == null ? null : modifyBy.trim();
+        this.modifyBy = modifyBy;
     }
 
     public Date getModifyTime() {
@@ -80,6 +80,6 @@ public class Role extends BaseModel{
     }
 
     public void setDeleted(String deleted) {
-        this.deleted = deleted == null ? null : deleted.trim();
+        this.deleted = deleted;
     }
 }

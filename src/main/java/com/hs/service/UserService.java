@@ -4,13 +4,13 @@ import com.hs.domain.User;
 import com.hs.util.Result;
 import com.hs.vo.JqGridPagerVO;
 import com.hs.vo.LoginUserVO;
-import com.hs.vo.PageVO;
+import com.hs.vo.RequestPageVO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface UserService {
-    JqGridPagerVO<User> getJqGridData(PageVO page, String username);
+    JqGridPagerVO<User> getJqGridData(RequestPageVO requestPage, String username);
 
     /**
      * 用户登录

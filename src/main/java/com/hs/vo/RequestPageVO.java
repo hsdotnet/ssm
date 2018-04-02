@@ -1,6 +1,6 @@
 package com.hs.vo;
 
-public class PageVO {
+public class RequestPageVO {
     private int page;
     private int rows;
     private String sidx;
@@ -40,12 +40,16 @@ public class PageVO {
     }
 
     public int getOffset() {
-        return (page - 1) * rows;
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     @Override
     public String toString() {
-        return "PageVO{" +
+        return "RequestPageVO{" +
                 "page=" + page +
                 ", rows=" + rows +
                 ", sidx='" + sidx + '\'' +
